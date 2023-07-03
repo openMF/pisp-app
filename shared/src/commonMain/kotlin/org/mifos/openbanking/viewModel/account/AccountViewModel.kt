@@ -12,17 +12,17 @@ import org.mifos.openbanking.domain.usecase.fetchBalances.FetchBalancesResponse
 import org.mifos.openbanking.domain.usecase.fetchBalances.FetchBalancesUseCase
 import org.mifos.openbanking.viewModel.base.BaseViewModel
 import org.mifos.openbanking.viewModel.model.AccountModel
+import kotlin.coroutines.CoroutineContext
 
-class AccountViewModel : BaseViewModel() {
+class AccountViewModel(
+    private val diskDataSource: DiskDataSource,
+    private val coroutineContext: CoroutineContext,
+    private val fetchAccountsUseCase: FetchAccountsUseCase,
+    private val fetchBalancesUseCase: FetchBalancesUseCase,
+) : BaseViewModel() {
 
     // LIVE DATA
     val accountStateLiveData = MutableStateFlow<AccountState>(LoadingAccountState)
-
-    // USE CASE
-    private val fetchAccountsUseCase = FetchAccountsUseCase()
-    private val fetchBalancesUseCase = FetchBalancesUseCase()
-
-    private val diskDataSource = DiskDataSource()
 
     fun fetchAccounts() = launchSilent(
         coroutineContext,

@@ -9,16 +9,16 @@ import org.mifos.openbanking.domain.usecase.loginClient.LoginClientRequest
 import org.mifos.openbanking.domain.usecase.loginClient.LoginClientUseCase
 import org.mifos.openbanking.viewModel.base.BaseViewModel
 import org.mifos.openbanking.viewModel.model.UserModel
+import kotlin.coroutines.CoroutineContext
 
-class AuthViewModel : BaseViewModel() {
+class AuthViewModel(
+    private val coroutineContext: CoroutineContext,
+    private val diskDataSource: DiskDataSource,
+    private val loginClientUseCase: LoginClientUseCase,
+) : BaseViewModel() {
 
     // LIVE DATA
     val authStateLiveData = MutableStateFlow<AuthState>(LoadingAuthState)
-
-    // USE CASE
-    private val loginClientUseCase = LoginClientUseCase()
-
-    private val diskDataSource = DiskDataSource()
 
     fun createClient() = launchSilent(
         coroutineContext,

@@ -7,7 +7,7 @@ import org.mifos.openbanking.domain.usecase.base.BaseUseCase
 class FetchTransactionsUseCase(private val repository: OpenBankingRepository) :
     BaseUseCase<FetchTransactionsRequest, FetchTransactionsResponse>() {
 
-    override suspend fun run(): Response<FetchTransactionsResponse> {
+    override suspend fun run(request: FetchTransactionsRequest): Response<FetchTransactionsResponse> {
         return repository.fetchTransactions(request)
     }
 }

@@ -45,5 +45,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
     implementation("androidx.compose.foundation:foundation:1.4.3")
     implementation("androidx.compose.material:material:1.4.3")
-    implementation("androidx.activity:activity-compose:1.7.1")
+    implementation("androidx.activity:activity-compose:1.7.2")
+    implementation("io.insert-koin:koin-core:3.2.0")
+    implementation("io.insert-koin:koin-android:3.2.0")
 }

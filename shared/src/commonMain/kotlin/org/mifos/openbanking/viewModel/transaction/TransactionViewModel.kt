@@ -11,8 +11,14 @@ import org.mifos.openbanking.domain.usecase.fetchTransactionRequests.FetchTransa
 import org.mifos.openbanking.domain.usecase.fetchTransactionRequests.FetchTransactionRequestsUseCase
 import org.mifos.openbanking.viewModel.base.BaseViewModel
 import org.mifos.openbanking.viewModel.model.TransactionRequestModel
+import kotlin.coroutines.CoroutineContext
 
-class TransactionViewModel : BaseViewModel() {
+class TransactionViewModel(
+    private val coroutineContext: CoroutineContext,
+    private val diskDataSource: DiskDataSource,
+    private val createTransactionRequestUseCase: CreateTransactionRequestUseCase,
+    private val fetchTransactionRequestsUseCase: FetchTransactionRequestsUseCase,
+) : BaseViewModel() {
 
     // LIVE DATA
     val createTransactionRequestStateLiveData = MutableStateFlow<CreateTransactionRequestState>(
@@ -21,12 +27,6 @@ class TransactionViewModel : BaseViewModel() {
     val fetchTransactionStateLiveData = MutableStateFlow<FetchTransactionState>(
         LoadingFetchTransactionState
     )
-
-    // USE CASE
-    private val createTransactionRequestUseCase = CreateTransactionRequestUseCase()
-    private val fetchTransactionRequestsUseCase = FetchTransactionRequestsUseCase()
-
-    private val diskDataSource = DiskDataSource()
 
     fun fetchTransactionRequestsFor(bankId: String, accountId: String) = launchSilent(
         coroutineContext,

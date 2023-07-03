@@ -5,10 +5,10 @@ import org.mifos.openbanking.data.datasources.disk.preferencesHelper.Preferences
 import org.mifos.openbanking.domain.usecase.fetchBanks.Bank
 import org.mifos.openbanking.viewModel.model.UserModel
 
-class DiskDataSource {
-
-    // private val database: Database = createDatabase(TODO())
-    private val preferencesHelper: PreferencesHelper = PreferencesHelper()
+class DiskDataSource(
+    private val preferencesHelper: PreferencesHelper,
+    private val database: Database,
+) {
 
     fun isUserLoggedIn(): Boolean {
         val userModel = preferencesHelper.getUserModel()

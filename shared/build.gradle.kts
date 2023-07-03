@@ -28,8 +28,9 @@ kotlin {
     }
 
     val coroutinesVersion = "1.7.1"
-    val ktorVersion = "2.3.1"
+    val ktorVersion = "2.3.2"
     val sqlDelightVersion = "2.0.0-rc02"
+    val koinVersion = "3.2.0"
 
     sourceSets {
         val commonMain by getting {
@@ -39,6 +40,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+                implementation("io.insert-koin:koin-core:$koinVersion")
             }
         }
         val commonTest by getting {

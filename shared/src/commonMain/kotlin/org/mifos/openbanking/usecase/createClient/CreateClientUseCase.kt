@@ -7,7 +7,7 @@ import org.mifos.openbanking.domain.usecase.base.BaseUseCase
 class CreateClientUseCase(private val repository: OpenBankingRepository) :
     BaseUseCase<CreateClientRequest, CreateClientResponse>() {
 
-    override suspend fun run(): Response<CreateClientResponse> {
+    override suspend fun run(request: CreateClientRequest): Response<CreateClientResponse> {
         return repository.createClient(request)
     }
 }
