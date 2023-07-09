@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Open Banking</string>
+
+    <string name="accounts">Accounts</string>
+    <string name="transactions">Transactions</string>
+    <string name="notifications">Notifications</string>
+    <string name="account_id">Account Id</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="amount">Amount</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="proceed">Proceed</string>
+    <string name="cancel">Cancel</string>
+    <string name="description">Description</string>
+    <string name="requests_from">Requests from</string>
+
+
+</resources>
