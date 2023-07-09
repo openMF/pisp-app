@@ -9,7 +9,7 @@ import org.mifos.openbanking.base.Response
 import org.mifos.openbanking.domain.usecase.fetchCards.FetchCardsRequest
 import org.mifos.openbanking.domain.usecase.fetchCards.FetchCardsResponse
 
-class CardApi {
+class CardApi(private val httpClient: HttpClient) {
 
     suspend fun fetchCards(request: FetchCardsRequest): Response<FetchCardsResponse> {
         try {

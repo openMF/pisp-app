@@ -1,5 +1,6 @@
 package org.mifos.openbanking.data.datasources.network
 
+import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.request.get
@@ -14,7 +15,7 @@ import org.mifos.openbanking.domain.usecase.fetchBalances.FetchBalancesResponse
 import org.mifos.openbanking.domain.usecase.loginClient.LoginClientRequest
 import org.mifos.openbanking.domain.usecase.loginClient.LoginClientResponse
 
-class ClientApi {
+class ClientApi(private val httpClient: HttpClient) {
 
     suspend fun createClient(
         name: String,

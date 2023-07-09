@@ -37,7 +37,7 @@ data class CreateTransactionBody(
     )
 }
 
-class TransactionApi {
+class TransactionApi(private val httpClient: HttpClient) {
 
     suspend fun createTransactionRequest(request: CreateTransactionRequestRequest): Response<CreateTransactionRequestResponse> {
         try {

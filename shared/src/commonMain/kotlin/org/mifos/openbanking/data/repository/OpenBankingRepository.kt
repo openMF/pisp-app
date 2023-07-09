@@ -24,7 +24,7 @@ import org.mifos.openbanking.domain.usecase.loginClient.LoginClientRequest
 import org.mifos.openbanking.domain.usecase.loginClient.LoginClientResponse
 
 class OpenBankingRepository(
-    private val networkDataSource: NetworkDataSource = NetworkDataSource()
+    private val networkDataSource: NetworkDataSource
 ) {
 
     suspend fun createClient(request: CreateClientRequest): Response<CreateClientResponse> {

@@ -1,10 +1,10 @@
 package org.mifos.openbanking.data.datasources.network
 
 class NetworkDataSource(
-    private val clientApi: ClientApi = ClientApi(),
-    private val banksApi: BanksApi = BanksApi(),
-    private val transactionApi: TransactionApi = TransactionApi(),
-    private val cardApi: CardApi = CardApi()
+    private val clientApi: ClientApi,
+    private val banksApi: BanksApi,
+    private val transactionApi: TransactionApi,
+    private val cardApi: CardApi
 ) {
 
     fun getClientApi(): ClientApi {

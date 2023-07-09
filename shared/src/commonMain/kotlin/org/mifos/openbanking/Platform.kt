@@ -1,5 +1,5 @@
 package org.mifos.openbanking
 
-expect class Platform() {
+interface Platform {
     val name: String
 }

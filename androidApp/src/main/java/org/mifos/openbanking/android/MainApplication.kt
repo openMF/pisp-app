@@ -5,8 +5,8 @@ import android.util.Log
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import org.mifos.openbanking.android.di.androidModule
-import org.mifos.openbanking.di.appModules
+import org.mifos.openbanking.di.commonModules
+import org.mifos.openbanking.di.platformModule
 
 class MainApplication : Application() {
 
@@ -15,9 +15,9 @@ class MainApplication : Application() {
         Log.d("MainApplication", "onCreate()")
 
         startKoin {
-            androidContext(this@MainApplication)
             androidLogger()
-            modules(appModules() + androidModule)
+            androidContext(this@MainApplication)
+            modules(commonModules() + platformModule())
         }
 
         // App.appLaunch()

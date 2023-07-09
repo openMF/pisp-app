@@ -1,5 +1,6 @@
 package org.mifos.openbanking.data.datasources.network
 
+import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.request.get
@@ -7,7 +8,7 @@ import org.mifos.openbanking.base.Response
 import org.mifos.openbanking.domain.usecase.fetchBanks.FetchBanksRequest
 import org.mifos.openbanking.domain.usecase.fetchBanks.FetchBanksResponse
 
-class BanksApi {
+class BanksApi(private val httpClient: HttpClient) {
 
     suspend fun fetchBanks(request: FetchBanksRequest): Response<FetchBanksResponse> {
         return try {
