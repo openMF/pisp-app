@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Open Banking</string>
+    <string name="app_name">PISP App</string>
 
     <string name="accounts">Accounts</string>
     <string name="transactions">Transactions</string>

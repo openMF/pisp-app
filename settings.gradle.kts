@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Open_Banking_App"
+rootProject.name = "PISP App"
 include(":androidApp")
 include(":shared")

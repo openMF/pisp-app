@@ -70,6 +70,9 @@ android {
         minSdk = 24
     }
 }
+dependencies {
+    implementation("androidx.room:room-common:2.4.2")
+}
 
 sqldelight {
     databases {
