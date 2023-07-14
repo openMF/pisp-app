@@ -1,6 +1,6 @@
 package org.mifos.pisp.data.datasources.disk
 
-import org.mifos.openbanking.Database
+import org.mifos.pisp.Database
 import org.mifos.pisp.disk.DriverFactory
 
 fun createDatabase(driverFactory: DriverFactory): Database {

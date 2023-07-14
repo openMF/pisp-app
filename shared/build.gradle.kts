@@ -64,20 +64,20 @@ kotlin {
 }
 
 android {
-    namespace = "org.mifos.openbanking"
+    namespace = "org.mifos.pisp"
     compileSdk = 33
     defaultConfig {
         minSdk = 24
     }
 }
 dependencies {
-    implementation("androidx.room:room-common:2.4.2")
+    implementation("androidx.room:room-common:2.5.2")
 }
 
 sqldelight {
     databases {
         create("Database") {
-            packageName.set("org.mifos.openbanking")
+            packageName.set("org.mifos.pisp")
         }
     }
 }

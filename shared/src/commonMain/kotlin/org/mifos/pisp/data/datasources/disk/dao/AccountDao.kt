@@ -1,6 +1,6 @@
 package org.mifos.pisp.data.datasources.disk.dao
 
-import org.mifos.openbanking.Database
+import org.mifos.pisp.Database
 import org.mifos.pisp.AccountModel
 
 class AccountDao(database: Database) {

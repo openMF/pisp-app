@@ -1,6 +1,6 @@
 package org.mifos.pisp.data.datasources.disk
 
-import org.mifos.openbanking.Database
+import org.mifos.pisp.Database
 import org.mifos.pisp.data.datasources.disk.preferencesHelper.PreferencesHelper
 import org.mifos.pisp.usecase.fetchBanks.Bank
 import org.mifos.pisp.viewModel.model.UserModel
