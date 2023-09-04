@@ -61,7 +61,7 @@ class FakeNetworkDataSource(
     }
 
     // PISP Linking: Request consent (OTP)
-    suspend fun createConsentRequest(): Flow<LinkingConsentResponse> {
+    suspend fun initiateConsentRequest(): Flow<LinkingConsentResponse> {
         return flow<LinkingConsentResponse> {
             val jsonData = """
         {
