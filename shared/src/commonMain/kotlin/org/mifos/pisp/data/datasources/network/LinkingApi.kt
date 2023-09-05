@@ -2,7 +2,6 @@ package org.mifos.pisp.data.datasources.network
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
 import io.ktor.client.request.header
@@ -17,18 +16,12 @@ class LinkingApi(private val httpClient: HttpClient) {
 
     suspend fun fetchDFSPList(): Flow<LinkingProviderSuccess> {
         return flow {
-            try {
-                val request = HttpRequestBuilder()
-                request.url(OUTBOUND_SERVER + LINKING_PROVIDERS_PATH)
+            val request = HttpRequestBuilder()
+            request.url(OUTBOUND_SERVER + LINKING_PROVIDERS_PATH)
 
-                val response = httpClient.get(request)
-                val result = response.body<LinkingProviderSuccess>()
-                emit(result)
-            } catch (exp: ClientRequestException) {
-                // TODO: handle error
-            } catch (exp: Exception) {
-                // TODO: handle error
-            }
+            val response = httpClient.get(request)
+            val result = response.body<LinkingProviderSuccess>()
+            emit(result)
         }
     }
 
@@ -37,18 +30,12 @@ class LinkingApi(private val httpClient: HttpClient) {
         userId: String
     ): Flow<List<LinkingAccountList>> {
         return flow {
-            try {
-                val request = HttpRequestBuilder()
-                request.url(OUTBOUND_SERVER + createLinkingAccountsPath(fspId, userId))
+            val request = HttpRequestBuilder()
+            request.url(OUTBOUND_SERVER + createLinkingAccountsPath(fspId, userId))
 
-                val response = httpClient.get(request)
-                val result = response.body<List<LinkingAccountList>>()
-                emit(result)
-            } catch (exp: ClientRequestException) {
-                // TODO: handle error
-            } catch (exp: Exception) {
-                // TODO: handle error
-            }
+            val response = httpClient.get(request)
+            val result = response.body<List<LinkingAccountList>>()
+            emit(result)
         }
     }
 
@@ -76,15 +63,9 @@ class LinkingApi(private val httpClient: HttpClient) {
             requestBuilder.header("Content-Type", "application/json")
             requestBuilder.body = requestBody
 
-            try {
-                val postRequest = httpClient.post(requestBuilder)
-                val linkingConsentResponse = postRequest.body<LinkingConsentResponse>()
-                emit(linkingConsentResponse)
-            } catch (exp: ClientRequestException) {
-                // TODO: handle error
-            } catch (exp: Exception) {
-                // TODO: handle error
-            }
+            val response = httpClient.post(requestBuilder)
+            val result = response.body<LinkingConsentResponse>()
+            emit(result)
         }
     }
 
@@ -103,15 +84,9 @@ class LinkingApi(private val httpClient: HttpClient) {
             requestBuilder.header("Content-Type", "application/json")
             requestBuilder.body = requestBody
 
-            try {
-                val postRequest = httpClient.post(requestBuilder)
-                val linkingAuthenticateResponse = postRequest.body<LinkingAuthenticateResponse>()
-                emit(linkingAuthenticateResponse)
-            } catch (exp: ClientRequestException) {
-                // TODO: handle error
-            } catch (exp: Exception) {
-                // TODO: handle error
-            }
+            val response = httpClient.post(requestBuilder)
+            val result = response.body<LinkingAuthenticateResponse>()
+            emit(result)
         }
     }
 
@@ -128,15 +103,9 @@ class LinkingApi(private val httpClient: HttpClient) {
             requestBuilder.header("Content-Type", "application/json")
             requestBuilder.body = requestBody
 
-            try {
-                val putRequest = httpClient.put(requestBuilder)
-                val credentialRegistration = putRequest.body<CredentialRegistrationResponse>()
-                emit(credentialRegistration)
-            } catch (exp: ClientRequestException) {
-                // TODO: handle error
-            } catch (exp: Exception) {
-                // TODO: handle error
-            }
+            val response = httpClient.put(requestBuilder)
+            val result = response.body<CredentialRegistrationResponse>()
+            emit(result)
         }
     }
 }
