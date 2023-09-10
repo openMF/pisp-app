@@ -7,12 +7,20 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
+import org.mifos.pisp.data.datasources.network.Amount
 import org.mifos.pisp.data.datasources.network.CredentialRegistrationResponse
 import org.mifos.pisp.data.datasources.network.LinkingAccountList
 import org.mifos.pisp.data.datasources.network.LinkingApi
 import org.mifos.pisp.data.datasources.network.LinkingAuthenticateResponse
 import org.mifos.pisp.data.datasources.network.LinkingConsentResponse
 import org.mifos.pisp.data.datasources.network.LinkingProviderSuccess
+import org.mifos.pisp.data.datasources.network.Payee
+import org.mifos.pisp.data.datasources.network.Payer
+import org.mifos.pisp.data.datasources.network.TransactionType
+import org.mifos.pisp.data.datasources.network.TransferApproveResponse
+import org.mifos.pisp.data.datasources.network.TransferPartyLookupResponse
+import org.mifos.pisp.data.datasources.network.TransferTransactionResponse
+import org.mifos.pisp.data.datasources.network.TransfersApi
 import org.mifos.pisp.data.fakesource.FakeNetworkDataSource
 
 class PispRepository(
@@ -86,6 +94,72 @@ class PispRepository(
             .flowOn(ioDispatcher)
             .catch {
                 networkDataSource.registerCredentialForConsent()
+            }
+    }
+
+    // PISP Transfers: Party Lookup
+    suspend fun initiatePartyLookup(
+        transactionRequestId: String,
+        payee: Payee
+    ): Flow<TransferPartyLookupResponse> {
+        return TransfersApi(httpClient).fetchPartyInformation(transactionRequestId, payee)
+            .flowOn(ioDispatcher)
+            .catch {
+                networkDataSource.initiatePartyLookup()
+            }
+    }
+
+    // PISP Transfers: Initiate Transfer Transaction
+    suspend fun initiateTransferTransaction(
+        transactionRequestId: String,
+        consentId: String,
+        payee: Payee,
+        payer: Payer,
+        amountType: String,
+        amount: Amount,
+        transactionType: TransactionType,
+        expiration: String
+    ): Flow<TransferTransactionResponse> {
+        return TransfersApi(httpClient).processTransferTransaction(
+            transactionRequestId,
+            consentId,
+            payee,
+            payer,
+            amountType,
+            amount,
+            transactionType,
+            expiration
+        )
+            .flowOn(ioDispatcher)
+            .catch {
+                networkDataSource.initiateTransferTransaction()
+            }
+    }
+
+    // PISP Transfers: Approve Transfer Transaction
+    suspend fun approveTransferTransaction(
+        transactionRequestId: String,
+        consentId: String,
+        payee: Payee,
+        payer: Payer,
+        amountType: String,
+        amount: Amount,
+        transactionType: TransactionType,
+        expiration: String
+    ): Flow<TransferApproveResponse> {
+        return TransfersApi(httpClient).processTransferApprove(
+            transactionRequestId = transactionRequestId,
+            consentId = consentId,
+            payee = payee,
+            payer = payer,
+            amountType = amountType,
+            amount = amount,
+            transactionType = transactionType,
+            expiration = expiration
+        )
+            .flowOn(ioDispatcher)
+            .catch {
+                networkDataSource.approveTransferTransaction()
             }
     }
 }

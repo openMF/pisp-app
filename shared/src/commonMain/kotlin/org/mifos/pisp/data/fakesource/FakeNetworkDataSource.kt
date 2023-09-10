@@ -12,6 +12,9 @@ import org.mifos.pisp.data.datasources.network.LinkingAccountList
 import org.mifos.pisp.data.datasources.network.LinkingAuthenticateResponse
 import org.mifos.pisp.data.datasources.network.LinkingConsentResponse
 import org.mifos.pisp.data.datasources.network.LinkingProviderSuccess
+import org.mifos.pisp.data.datasources.network.TransferApproveResponse
+import org.mifos.pisp.data.datasources.network.TransferPartyLookupResponse
+import org.mifos.pisp.data.datasources.network.TransferTransactionResponse
 
 /**
  * [FakeNetworkDataSource] implementation that provides static Mojaloop Thirdparty Outbound SDK API resources to aid development
@@ -126,6 +129,74 @@ class FakeNetworkDataSource(
       "currentState": "accountsLinked"
     }
     """.trimIndent()
+            emit(Json.decodeFromString(jsonData))
+        }.flowOn(ioDispatcher)
+    }
+
+    // PISP Transfers: Party lookup
+    suspend fun initiatePartyLookup(): Flow<TransferPartyLookupResponse> {
+        return flow<TransferPartyLookupResponse> {
+            val jsonData = """
+        {
+          "currentState": "partyLookupSuccess",
+          "party": {
+            "partyIdInfo": {
+              "partyIdType": "MSISDN",
+              "partyIdentifier": "+19876543210",
+              "fspId": "dfspb"
+            },
+            "name": "Bob"
+          }
+        }
+        """.trimIndent()
+            emit(Json.decodeFromString(jsonData))
+        }.flowOn(ioDispatcher)
+    }
+
+    // PISP Transfers: Initiate Transfer Transaction
+    suspend fun initiateTransferTransaction(): Flow<TransferTransactionResponse> {
+        return flow<TransferTransactionResponse> {
+            val jsonData = """
+        {
+          "currentState": "authorizationReceived",
+          "authorization": {
+            "authenticationType": "U2F",
+            "retriesLeft": "1",
+            "amount": {
+              "currency": "USD",
+              "amount": "100.00"
+            },
+            "transactionId": "1234-1234-1234-1234",
+            "transactionRequestId": "1234-1234-1234-1234",
+            "quote": {
+              "transferAmount": {
+                "currency": "USD",
+                "amount": "100.00"
+              },
+              "expiration": "2023-09-09T08:38:08.699-04:00",
+              "ilpPacket": "...",
+              "condition": "..."}
+          }
+        }
+        """.trimIndent()
+
+            emit(Json.decodeFromString(jsonData))
+        }.flowOn(ioDispatcher)
+    }
+
+    // PISP Transfers: Approve Transfer Transaction
+    suspend fun approveTransferTransaction(): Flow<TransferApproveResponse> {
+        return flow<TransferApproveResponse> {
+            val jsonData = """
+        {
+            "transactionStatus": {
+                "transactionRequestState": "ACCEPTED",
+                "transactionState": "COMPLETED"
+            },
+            "currentState": "transactionStatusReceived"
+        }
+        """.trimIndent()
+
             emit(Json.decodeFromString(jsonData))
         }.flowOn(ioDispatcher)
     }

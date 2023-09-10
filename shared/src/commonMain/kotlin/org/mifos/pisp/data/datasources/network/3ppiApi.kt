@@ -16,3 +16,13 @@ fun createAuthenticationPath(consentRequestId: String): String {
 fun createCredentialPath(consentRequestId: String): String {
     return "/linking/request-consent/$consentRequestId/pass-credential"
 }
+
+const val PARTY_LOOKUP_PATH = "/thirdpartyTransaction/partyLookup"
+
+fun createTransferTransactionPath(transactionRequestId: String): String {
+    return "/thirdpartyTransaction/$transactionRequestId/initiate"
+}
+
+fun createTransferApprovePath(transactionRequestId: String): String {
+    return "/thirdpartyTransaction/$transactionRequestId/approve"
+}
